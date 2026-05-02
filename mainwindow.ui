@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>370</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background: transparent;
+</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #4a3b3a, stop:0.5 #292a2d, stop:1 #1e2528);</string>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="pageHome">
+       <property name="styleSheet">
+        <string notr="true">background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e0eafc, stop:1 #cfdef3);</string>
+       </property>
+       <widget class="QLabel" name="labelTitle">
+        <property name="geometry">
+         <rect>
+          <x>65</x>
+          <y>90</y>
+          <width>240</width>
+          <height>60</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: &quot;Microsoft YaHei&quot;, &quot;PingFang SC&quot;, sans-serif;
+font-size: 36px; /* 这里变大了 */
+font-weight: 900;
+color: #1e3a8a;
+letter-spacing: 2px;
+background: transparent;</string>
+        </property>
+        <property name="text">
+         <string>反诈模拟挑战</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelIntro">
+        <property name="geometry">
+         <rect>
+          <x>45</x>
+          <y>220</y>
+          <width>280</width>
+          <height>150</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(255, 255, 255, 0.6);
+border-radius: 12px;
+font-size: 15px;
+color: #374151;
+line-height: 20px;
+padding: 10px;
+border: 1px solid rgba(255, 255, 255, 0.8);</string>
+        </property>
+        <property name="text">
+         <string>模拟真实电信诈骗场景
+
+请根据对话内容谨慎做出判断
+
+识破骗局，保护个人信息与财产安全
+</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnStart">
+        <property name="geometry">
+         <rect>
+          <x>105</x>
+          <y>430</y>
+          <width>160</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3b82f6, stop:1 #2563eb);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+}
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #60a5fa, stop:1 #3b82f6);
+}
+QPushButton:pressed {
+    background: #1d4ed8;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>开始挑战</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelHint">
+        <property name="geometry">
+         <rect>
+          <x>35</x>
+          <y>580</y>
+          <width>300</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 12px;
+color: #9ca3af;
+letter-spacing: 1px;
+background: transparent;</string>
+        </property>
+        <property name="text">
+         <string>请谨慎判断每一步，避免落入诈骗陷阱</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pageChat">
+       <property name="styleSheet">
+        <string notr="true">background-color: #f2f2f7; </string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QFrame" name="frame">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgba(255, 255, 255, 0.95);
+border-bottom: 1px solid #e5e5ea;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Shadow::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QToolButton" name="toolButton">
+             <property name="styleSheet">
+              <string notr="true">color: #007aff; /* 苹果蓝 */
+   font-size: 16px;
+   border: none;
+   background: transparent;</string>
+             </property>
+             <property name="text">
+              <string>&lt;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelChatTitle">
+             <property name="styleSheet">
+              <string notr="true">font-size: 17px;
+font-weight: bold;
+color: #000000;
+border: none;
+background: transparent;</string>
+             </property>
+             <property name="text">
+              <string>X国银行</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelStatus">
+             <property name="styleSheet">
+              <string notr="true">font-size: 12px;
+color: #8e8e93;
+border: none;
+background: transparent;</string>
+             </property>
+             <property name="text">
+              <string>通话中</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="scrollAreaChat">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+border: none;</string>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="chatContainer">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>358</width>
+             <height>460</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: transparent; border: none;</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="bottomPanel">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #ffffff;
+border-top: 1px solid #e5e5ea;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Shadow::Raised</enum>
+          </property>
+          <widget class="QPushButton" name="btnOption1">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>10</y>
+             <width>330</width>
+             <height>38</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #007aff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+QPushButton:pressed {
+    background-color: #005bb5;
+}</string>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btnOption2">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>60</y>
+             <width>330</width>
+             <height>38</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    background-color: #007aff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+QPushButton:pressed {
+    background-color: #005bb5;
+}</string>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageResult">
+       <property name="styleSheet">
+        <string notr="true">background-color: #f2f2f7;</string>
+       </property>
+       <widget class="QLabel" name="labelResultTitle">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>150</y>
+          <width>350</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelResultDesc">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>260</y>
+          <width>330</width>
+          <height>150</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnGoEducation">
+        <property name="geometry">
+         <rect>
+          <x>65</x>
+          <y>520</y>
+          <width>240</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #007aff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+}
+QPushButton:pressed {
+    background-color: #005bb5;
+}</string>
+        </property>
+        <property name="text">
+         <string>查看防诈骗指南</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pageEducation">
+       <property name="styleSheet">
+        <string notr="true">background-color: white;
+color: #222222;
+</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="labelEduTitle">
+          <property name="styleSheet">
+           <string notr="true">QLabel#labelEduTitle {
+    background-color: #ffffff;  
+    color: #1d1d1f;           
+    font-size: 18px;          
+    font-weight: bold;             
+    padding: 12px 0px;         
+    border-bottom: 1px solid #e5e5ea;
+}</string>
+          </property>
+          <property name="text">
+           <string>反诈知识宣传</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="scrollAreaEdu">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="eduContainer">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>356</width>
+             <height>255</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="videoFrame">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>180</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#videoFrame {
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;    
+}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Shadow::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="labelVideoHint">
+             <property name="styleSheet">
+              <string notr="true">#labelVideoHint {
+    color: #1a73e8;          
+    font-size: 18px;         
+    font-weight: bold;     
+    padding: 10px;             
+}</string>
+             </property>
+             <property name="text">
+              <string>💡 核心反诈秘籍：守好你的钱袋子</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTip1">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    color: #3c4043;          
+    font-size: 14px;
+    line-height: 1.5;       
+    padding: 5px 15px;        
+}</string>
+             </property>
+             <property name="text">
+              <string>🚫 【不轻信】凡是提到“安全账户”、“验证码转账”的电话，一律挂断！</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTip2">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    color: #3c4043;         
+    font-size: 14px;
+    line-height: 1.5;        
+    padding: 5px 15px;      
+}</string>
+             </property>
+             <property name="text">
+              <string>🔑 【不泄露】验证码是资金最后一道防线，任何官方客服都不会向你索要。</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTip3">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    color: #3c4043;            
+    font-size: 14px;
+    line-height: 1.5;         
+    padding: 5px 15px;        
+}</string>
+             </property>
+             <property name="text">
+              <string>💻 【不裸聊】不要下载来路不明的APP，所谓的“私密视频”全是骗子的诱饵。</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTip4">
+             <property name="styleSheet">
+              <string notr="true">QLabel {
+    color: #3c4043;        
+    font-size: 14px;
+    line-height: 1.5;         
+    padding: 5px 15px;         
+}</string>
+             </property>
+             <property name="text">
+              <string>📞 【快报警】如遇诈骗，请立即拨打 110，不要因为羞愧而隐瞒！</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnCloseApp">
+          <property name="styleSheet">
+           <string notr="true">QPushButton#btnCloseApp {
+    background-color: #1a73e8;
+    color: white;             
+    border-radius: 8px;        
+    font-size: 16px;
+    font-weight: bold;
+}
+QPushButton#btnCloseApp:hover {
+    background-color: #1557b0;
+}
+QPushButton#btnCloseApp:pressed {
+    background-color: #0d47a1; 
+}</string>
+          </property>
+          <property name="text">
+           <string>关闭</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageCall">
+       <property name="styleSheet">
+        <string notr="true">background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5c1616, stop:0.4 #1c1c1e, stop:1 #000000);
+color: white;</string>
+       </property>
+       <widget class="QLabel" name="labelIncoming">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>110</y>
+          <width>370</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent;
+color: rgba(255, 255, 255, 0.7);
+font-size: 18px;
+letter-spacing: 2px;</string>
+        </property>
+        <property name="text">
+         <string>风险来电</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelCallerName">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>145</y>
+          <width>370</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent;
+color: #ffffff;
+font-size: 38px;
+font-weight: bold;
+letter-spacing: 2px;
+</string>
+        </property>
+        <property name="text">
+         <string>未知来电</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="labelCallerNumber">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>210</y>
+          <width>370</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent;
+font-size: 16px;
+color: #8e8e93;</string>
+        </property>
+        <property name="text">
+         <string>+86 *********</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnDecline">
+        <property name="geometry">
+         <rect>
+          <x>63</x>
+          <y>500</y>
+          <width>72</width>
+          <height>72</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #ff3b30;
+    border: none;
+    min-width: 72px;
+    max-width: 72px;
+    min-height: 72px;
+    max-height: 72px;
+    border-radius: 36px;
+}
+QPushButton:pressed {
+    background-color: #cc2f26;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>C:/Users/qym20/Downloads/ic_call_declined.png</normaloff>C:/Users/qym20/Downloads/ic_call_declined.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnAnswer">
+        <property name="geometry">
+         <rect>
+          <x>235</x>
+          <y>500</y>
+          <width>72</width>
+          <height>72</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #34c759;
+    border: none;
+    min-width: 72px;
+    max-width: 72px;
+    min-height: 72px;
+    max-height: 72px;
+    border-radius: 36px; 
+}
+QPushButton:pressed {
+    background-color: #29a047;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>C:/Users/qym20/Downloads/ios-call.png</normaloff>C:/Users/qym20/Downloads/ios-call.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>36</width>
+          <height>36</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLabel" name="Declinelabel">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>590</y>
+          <width>76</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent; color: white; font-size: 15px;</string>
+        </property>
+        <property name="text">
+         <string>挂断</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="Answerlabel">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>590</y>
+          <width>76</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: transparent; color: white; font-size: 15px;</string>
+        </property>
+        <property name="text">
+         <string>接听</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
