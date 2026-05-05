@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QSoundEffect>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -34,7 +35,11 @@ private:
     void advanceChat();
     void showResultPage(bool success);
 
-
+    QSoundEffect *m_sndRing;    // 来电铃声
+    QSoundEffect *m_sndMsgIn;   // 收到消息
+    QSoundEffect *m_sndMsgOut;  // 发送消息/点击选项
+    QSoundEffect *m_sndSuccess; // 挑战成功
+    QSoundEffect *m_sndFail;    // 挑战失败
 
 };
 #endif // MAINWINDOW_H
