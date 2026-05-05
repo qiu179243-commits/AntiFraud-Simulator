@@ -5,6 +5,8 @@
 #include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QSoundEffect>
+#include <QPropertyAnimation>      // 动画核心类
+#include <QGraphicsOpacityEffect>  // 透明度效果类
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -37,7 +39,7 @@ private:
 
     QSoundEffect *m_sndRing;    // 来电铃声
     QSoundEffect *m_sndMsgIn;   // 收到消息
-    QSoundEffect *m_sndMsgOut;  // 发送消息/点击选项
+    QSoundEffect *m_sndMsgOut;  // 发送消息
     QSoundEffect *m_sndSuccess; // 挑战成功
     QSoundEffect *m_sndFail;    // 挑战失败
 

@@ -46,7 +46,7 @@
        <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #4a3b3a, stop:0.5 #292a2d, stop:1 #1e2528);</string>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="pageHome">
        <property name="styleSheet">
@@ -642,7 +642,7 @@ color: #222222;
       <widget class="QWidget" name="pageCall">
        <property name="styleSheet">
         <string notr="true">#pageCall {
-    /* 采用极深蓝到全黑的渐变，模拟 iOS 深度感 */
+
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1, 
                                 stop:0 #0F172A, 
                                 stop:1 #020617);

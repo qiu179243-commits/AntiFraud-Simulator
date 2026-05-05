@@ -6,7 +6,8 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QUrl>
-#include <QAudioOutput> // 让视频声音能正常播放
+//多媒体文件处理
+#include <QAudioOutput> // 播放视频声音
 #include <QFile>
 #include <QFontMetrics>
 
@@ -17,36 +18,38 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
-    // 拼接音频文件夹的基础路径
-    QString audioDir = QCoreApplication::applicationDirPath() + "/audio/"; //
+    //固定窗口为手机大小
+    setFixedSize(370, 640);
+    setWindowTitle("反诈模拟挑战");
 
-    // 1. 初始化来电铃声
+    // 音频文件夹的路径
+    QString audioDir = QCoreApplication::applicationDirPath() + "/audio/";
+
+    // 来电铃声
     m_sndRing = new QSoundEffect(this);
     m_sndRing->setSource(QUrl::fromLocalFile(audioDir + "phone_ring.wav"));
     m_sndRing->setLoopCount(QSoundEffect::Infinite); // 铃声设为无限循环
     m_sndRing->setVolume(0.8);
 
-    // 2. 初始化收到消息声
+    //消息声
     m_sndMsgIn = new QSoundEffect(this);
     m_sndMsgIn->setSource(QUrl::fromLocalFile(audioDir + "msg_receive.wav"));
 
-    // 3. 初始化发送消息/点击声
+    //消息声
     m_sndMsgOut = new QSoundEffect(this);
     m_sndMsgOut->setSource(QUrl::fromLocalFile(audioDir + "msg_send.wav"));
 
-    // 4. 初始化成功/失败声
+    // 成功/失败声
     m_sndSuccess = new QSoundEffect(this);
     m_sndSuccess->setSource(QUrl::fromLocalFile(audioDir + "success.wav"));
     m_sndFail = new QSoundEffect(this);
     m_sndFail->setSource(QUrl::fromLocalFile(audioDir + "fail.wav"));
 
-    // 加载第一个素材 (police1)
-    QString police1Path = QCoreApplication::applicationDirPath() + "/image/police1.png";
 
-    // 加载第二个素材 (police2)
+    //警察素材
     QString police2Path = QCoreApplication::applicationDirPath() + "/image/police2.png";
     if (QFile::exists(police2Path)) {
-        ui->labelPolice2->setFixedSize(80, 80);           // 🛡️ 核心修复：强行锁定 80x80 大小
+        ui->labelPolice2->setFixedSize(80, 80);
         ui->labelPolice2->setAlignment(Qt::AlignCenter);
         ui->labelPolice2->setPixmap(QPixmap(police2Path).scaled(80, 80, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
@@ -61,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QAudioOutput *audioOutput = new QAudioOutput(this);
     m_player->setAudioOutput(audioOutput);
-    audioOutput->setVolume(1.0);          // 设置音量 (0.0 到 1.0)
+    audioOutput->setVolume(1.0);// 设置音量 (0.0 到 1.0)
 
     m_videoWidget = new QVideoWidget(ui->eduContainer);
     m_player->setVideoOutput(m_videoWidget);
@@ -72,11 +75,9 @@ MainWindow::MainWindow(QWidget *parent)
         chatLayout->setAlignment(Qt::AlignTop);
     }
 
-    setFixedSize(370, 640);//固定窗口为手机大小
-    setWindowTitle("反诈模拟挑战");
-
+    //1、开始页面
     ui->stackedWidget->setCurrentWidget(ui->pageHome);
-
+    //2、来电界面
     connect(ui->btnStart, &QPushButton::clicked, this, [=]()
     {
         m_sndRing->play();
@@ -85,17 +86,20 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->btnOption1->hide();
     ui->btnOption2->hide();
-
+    //3、通话界面
     connect(ui->btnAnswer, &QPushButton::clicked, this, [=]() {
-        m_sndRing->stop();   // <--- 插入这一行：接听了，赶紧把铃声掐掉[cite: 1]
+        m_sndRing->stop();   // 接听后铃声停止
         m_sndMsgIn->play();
         startChatScene();
     });
+
     connect(ui->btnOption1, &QPushButton::clicked, this, [=]() {
     m_sndMsgOut->play();
         handleOption1();
     });
-    connect(ui->btnOption2, &QPushButton::clicked, this, [=]() {
+
+    connect(ui->btnOption2, &QPushButton::clicked, this, [=]()
+    {
         m_sndMsgOut->play();
         QString selectedText = ui->btnOption2->text();
 
@@ -122,71 +126,67 @@ MainWindow::MainWindow(QWidget *parent)
             });
         }
     });
-
+    //5、教育页面
     connect(ui->btnGoEducation, &QPushButton::clicked, this, [=]() {
-        // 1. 切换页面
+
+        //切换页面
         ui->stackedWidget->setCurrentWidget(ui->pageEducation);
 
-        // 2. 【核心修复】强行删除该页面的布局管理器，否则 move 指令无效
+
         if (ui->pageEducation->layout()) {
             delete ui->pageEducation->layout();
         }
 
-        // 3. 定义画布规格 (370x640)
         int winW = 370;
 
-        // 4. 视频定位 (y=50, 高度约210)
+        //视频位置
         int videoH = winW * 9 / 16;
-        m_videoWidget->setParent(ui->pageEducation); // 确保父对象正确
+        m_videoWidget->setParent(ui->pageEducation);
         m_videoWidget->setGeometry(0, 50, winW, videoH);
         m_videoWidget->show();
 
-        // 5. 白色文字卡片 (videoFrame) 定位
-        // 必须大幅度缩减高度！设为 280 像素
+        // videoFrame页面大小
         ui->videoFrame->setGeometry(15, 50 + videoH + 10, winW - 30, 280);
 
-        // 6. 底部双按钮：绝对定位 (不再受布局控制)
+        //底部双按钮 重新挑战与关闭
         ui->btnRestartEdu->setParent(ui->pageEducation);
         ui->btnCloseApp->setParent(ui->pageEducation);
 
-        int btnW = 155; // 按钮稍微加宽一点点
-        int btnH = 50;  // 高度加到50，更有点击感
-        int btnY = 570; // 距离底部留 70 像素，绝对不会撞到卡片
+        int btnW = 155;
+        int btnH = 50;
+        int btnY = 570;
 
         ui->btnRestartEdu->setFixedSize(btnW, btnH);
         ui->btnCloseApp->setFixedSize(btnW, btnH);
 
-        // 精准对齐：左边留20，中间空20，右边自然对齐
+        // 页面对齐
         ui->btnRestartEdu->move(20, btnY);
         ui->btnCloseApp->move(195, btnY);
 
         ui->btnRestartEdu->show();
         ui->btnCloseApp->show();
 
-        // 7. 加载并播放视频
+        // 播放视频
         QString videoPath = QCoreApplication::applicationDirPath() + "/video/antifraud.mp4";
         m_player->setSource(QUrl::fromLocalFile(videoPath));
         m_player->play();
     });
+    //重新挑战
     connect(ui->btnRestartEdu, &QPushButton::clicked, this, [=]() {
-        // 停掉教育页的视频
-        m_player->stop();
-        // 播放点击音效
+        m_player->stop();  // 视频暂停
         if(m_sndMsgOut) m_sndMsgOut->play();
-        // 丝滑回到主页[cite: 1]
-        ui->stackedWidget->setCurrentWidget(ui->pageHome);
-        // 把之前的聊天记录清干净，准备下一轮[cite: 1]
+        ui->stackedWidget->setCurrentWidget(ui->pageHome); // 回到主页
         clearChatArea();
     });
     connect(ui->btnCloseApp, &QPushButton::clicked, this, [=]() {
         this->close();
     });
-
 }
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 void MainWindow::clearChatArea()
 {
     QLayout *layout = ui->chatContainer->layout();
@@ -202,7 +202,7 @@ void MainWindow::clearChatArea()
     }
 }
 
-
+//通话聊天界面
 void MainWindow::appendBubble(const QString &text, bool isUser)
 {
     QLayout *chatLayout = ui->chatContainer->layout();
@@ -216,7 +216,7 @@ void MainWindow::appendBubble(const QString &text, bool isUser)
 
     QLabel *avatar = new QLabel;
     avatar->setAlignment(Qt::AlignCenter);
-
+    //头像
     QString imageFileName = isUser ? "/image/user.jpg" : "/image/scammer.jpg";
     QString imagePath = QCoreApplication::applicationDirPath() + imageFileName;
 
@@ -240,19 +240,13 @@ void MainWindow::appendBubble(const QString &text, bool isUser)
     bubble->setWordWrap(true);
     bubble->setMargin(10);
 
-    // ==========================================================
-    // 【杀手锏：纯手工算宽度，强行焊死！】
-    // 不指望 Qt 的弱智引擎了，我们自己提前量好文字有多宽
+  //调整文字框
     QFontMetrics fm(bubble->font());
-    // 模拟在 230 像素宽度下换行，看看到底需要多大空间
     QRect textRect = fm.boundingRect(QRect(0, 0, 230, 9999), Qt::TextWordWrap, text);
-    int realWidth = textRect.width() + 35; // 加上 20 的内边距，再多给 15 像素防吃字余量
-
+    int realWidth = textRect.width() + 35;
     if (realWidth > 250) {
         realWidth = 250;
     }
-
-    // 强行把底线拉高！弹簧再用力，也绝对无法把它挤得比 realWidth 更窄！
     bubble->setMinimumWidth(realWidth);
     bubble->setMaximumWidth(250);
     // ==========================================================
@@ -263,7 +257,6 @@ void MainWindow::appendBubble(const QString &text, bool isUser)
             : "background:white; color:#000000; border-radius:12px;"
         );
 
-    // 恢复经典的排版，这次有 realWidth 护体，再也不会变形了
     if (isUser) {
         rowLayout->addStretch();
         rowLayout->addWidget(bubble);
@@ -276,7 +269,7 @@ void MainWindow::appendBubble(const QString &text, bool isUser)
 
     chatLayout->addWidget(rowWidget);
     if (!isUser) {
-        m_sndMsgIn->play(); // <--- 如果是骗子说话，播放“收到消息”的声音
+        m_sndMsgIn->play(); //音效
     }
 
     QTimer::singleShot(50, this, [=]() {
@@ -285,12 +278,16 @@ void MainWindow::appendBubble(const QString &text, bool isUser)
             );
     });
 }
+
+//玩家对话选择
 void MainWindow::showSingleOption(const QString &text)
 {
     ui->btnOption1->setText(text);
     ui->btnOption1->show();
     ui->btnOption2->hide();
 }
+
+//转接专员函数
 void MainWindow::showSystemNotice(const QString &text)
 {
     QLayout *chatLayout = ui->chatContainer->layout();
@@ -311,7 +308,7 @@ void MainWindow::showSystemNotice(const QString &text)
     });
 }
 
-
+//开始对话
 void MainWindow::startChatScene()
 {
     ui->stackedWidget->setCurrentWidget(ui->pageChat);
@@ -415,6 +412,8 @@ void MainWindow::advanceChat()
         });
     }
 }
+
+//结算页面
 void MainWindow::showResultPage(bool success)
 {
     ui->stackedWidget->setCurrentWidget(ui->pageResult);
@@ -423,11 +422,10 @@ void MainWindow::showResultPage(bool success)
     ui->labelResultDesc->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
     ui->labelResultDesc->setWordWrap(true);
 
-    // 【防吃字绝招】：用原生的 margin 代替 QSS 的 padding！
+
     ui->labelResultDesc->setMargin(20);
 
     if (success) {
-        // 第一行放 Emoji
         m_sndSuccess->play();
         ui->labelResultTitle->setText("🎉\n挑战成功\n完美识破骗局");
         ui->labelResultTitle->setStyleSheet(
@@ -437,10 +435,9 @@ void MainWindow::showResultPage(bool success)
             "background: transparent;"
             );
 
-        // ⚠️ 一字不差地恢复你的原版文案！
+
         ui->labelResultDesc->setText("\n你挂断电话后主动拨打银行官方客服并报警，确认并无欠款和身份盗用情况，成功避免损失，并向警方提供了关键线索。");
 
-        // QSS 里绝对不再写 padding
         ui->labelResultDesc->setStyleSheet(
             "background-color: #e6f4ea; "
             "color: #1e4620; "
@@ -448,9 +445,10 @@ void MainWindow::showResultPage(bool success)
             "border-radius: 12px; "
             "border: 1px solid #c3e6cb;"
             );
-    } else {
+    }
+    else {
         m_sndFail->play();
-        // 第一行放 Emoji
+
         ui->labelResultTitle->setText("⚠️\n挑战失败\n惨遭诈骗");
         ui->labelResultTitle->setStyleSheet(
             "color: #dc3545; "
@@ -459,10 +457,10 @@ void MainWindow::showResultPage(bool success)
             "background: transparent;"
             );
 
-        // ⚠️ 一字不差地恢复你的原版文案！
+
         ui->labelResultDesc->setText("\n你把验证码告诉了对方，骗子立即登录你的账户并转走资金。\n\n⚠️ 此次模拟失败，请牢记：验证码、短信口令、支付密码绝不能告诉任何人。");
 
-        // QSS 里绝对不再写 padding
+
         ui->labelResultDesc->setStyleSheet(
             "background-color: #fce8e6; "
             "color: #c5221f; "
